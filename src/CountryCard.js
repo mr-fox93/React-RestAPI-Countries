@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Card = styled.div`
   width: 264px;
@@ -31,9 +32,15 @@ const Info = styled.div`
 `;
 
 const CountryCard = ({ country }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/country/${country.name}`);
+  };
+
   return (
     <>
-      <Card>
+      <Card onClick={handleClick}>
         <Image src={country.flag} />
 
         <CountryInfoSection>
