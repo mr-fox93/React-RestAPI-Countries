@@ -8,6 +8,8 @@ const Card = styled.div`
   border-radius: 6px;
   background-color: white;
   overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: "Nunito Sans", sans-serif;
 `;
 
 const Image = styled.img`
@@ -19,6 +21,8 @@ const Image = styled.img`
 const Name = styled.div`
   font-size: 18px;
   font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 15px;
 `;
 
 const CountryInfoSection = styled.div`
@@ -28,7 +32,7 @@ const CountryInfoSection = styled.div`
 `;
 
 const Info = styled.div`
-  line-height: 0.4;
+  line-height: 0.5;
 `;
 
 const CountryCard = ({ country }) => {

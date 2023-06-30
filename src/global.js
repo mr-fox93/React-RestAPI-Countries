@@ -4,9 +4,12 @@ export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [filtredRegion, setFiltredRegion] = useState([]);
+  const [swich, setSwich] = useState(false);
 
   return (
-    <GlobalContext.Provider value={{ filtredRegion, setFiltredRegion }}>
+    <GlobalContext.Provider
+      value={{ filtredRegion, setFiltredRegion, swich, setSwich }}
+    >
       {children}
     </GlobalContext.Provider>
   );
