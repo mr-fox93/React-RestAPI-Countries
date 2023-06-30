@@ -12,6 +12,8 @@ const NavbarContainer = styled.div`
   padding: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   font-family: "Nunito Sans", sans-serif;
+  background-color: ${(props) => (props.swich ? "white" : "#2B3844")};
+  color: ${(props) => (props.swich ? "black" : "white !important")};
 `;
 
 const LeftText = styled.div`
@@ -33,7 +35,7 @@ const Navbar = () => {
   console.log(swich);
 
   return (
-    <NavbarContainer>
+    <NavbarContainer swich={swich}>
       <LeftText>Where in the world?</LeftText>
       <RightText onClick={() => setSwich(!swich)}>
         {swich ? <LightModeIcon /> : <NightsStayIcon />}Dark mode

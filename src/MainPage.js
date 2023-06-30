@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 const Body = styled.body`
   min-height: 100vh;
-  background: #fafafa;
+  background: ${({ swich }) => (swich ? "#fafafa" : "#202C36")};
 `;
 
 const Wrapper = styled.div`
@@ -35,7 +35,7 @@ const InputWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 3px;
-  background: white;
+  background-color: ${(props) => (props.swich ? "white" : "#2B3844")};
 `;
 
 const Input = styled.input`
@@ -44,7 +44,8 @@ const Input = styled.input`
   height: 36px;
   padding-left: 10px;
   outline: none;
-  background: white;
+  background-color: ${(props) => (props.swich ? "white" : "#2B3844")};
+  color: ${(props) => (props.swich ? "black" : "white !important")};
 `;
 
 const fetchFunction = async () => {
@@ -80,7 +81,7 @@ const fetchFunction = async () => {
 function MainPage() {
   const [region, setRegion] = useState("Choose region");
   const [value, setValue] = useState("");
-  const { filtredRegion, setFiltredRegion } = useContext(GlobalContext);
+  const { filtredRegion, setFiltredRegion, swich } = useContext(GlobalContext);
 
   const { data, isLoading, error } = useQuery("countries", fetchFunction);
 
@@ -114,11 +115,12 @@ function MainPage() {
   });
 
   return (
-    <Body>
+    <Body swich={swich}>
       <SearchContener>
-        <InputWrapper>
+        <InputWrapper swich={swich}>
           <SearchIcon />
           <Input
+            swich={swich}
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -133,7 +135,7 @@ function MainPage() {
             minWidth: "200px",
             marginLeft: "10px",
             height: "46px",
-            background: "white",
+            background: `${swich ? "white" : "#2B3844"}`,
           }}
         >
           <MenuItem value="Choose region">Choose region</MenuItem>

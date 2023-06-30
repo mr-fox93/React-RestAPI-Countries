@@ -2,18 +2,17 @@ import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { GlobalContext } from "./global";
 import styled from "styled-components";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
-const Button = styled.button`
-  border: none;
-  background-color: transparent;
-  font-size: 16px;
-  font-weight: bold;
+const Body = styled.body`
+  min-height: 100vh;
+  background-color: ${(props) => (props.swich ? "white" : "#2B3844")};
+  color: ${(props) => (props.swich ? "black" : "white !important")};
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 50px;
   justify-content: space-between;
   padding: 2rem;
 `;
@@ -22,6 +21,7 @@ const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 65px;
 `;
 
 const Info = styled.div`
@@ -29,13 +29,14 @@ const Info = styled.div`
   flex-direction: column;
   flex-grow: 1;
   margin-left: 2rem;
-  margin-top: 25px;
+  margin-top: 65px;
 `;
 
 const RightSide = styled.div`
   display: flex;
   gap: 75px;
   padding: 0.5rem;
+  margin-top: 65px;
 `;
 
 const RightSideLeft = styled.div`
@@ -54,8 +55,17 @@ const BorderCountries = styled.div`
   padding: 0.5rem;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  gap: 8px;
+  font-weight: bold;
+`;
+
 const CountryMoreInfo = () => {
   const { filtredRegion } = useContext(GlobalContext);
+  const { swich } = useContext(GlobalContext);
   const { name } = useParams();
   const navigate = useNavigate();
 
@@ -68,36 +78,41 @@ const CountryMoreInfo = () => {
   }
 
   return (
-    <Wrapper>
-      <LeftSide>
-        <Button onClick={() => navigate("/")}>Back</Button>
-        <img
-          style={{ width: "560px", height: "401px", borderRadius: "6px" }}
-          src={country.flag}
-          alt={country.name}
-        />
-      </LeftSide>
-      <Info>
-        <h1>{country.name}</h1>
-        <RightSide>
-          <RightSideLeft>
-            <p>Native Name: {country.nativeName}</p>
-            <p>Population: {country.population}</p>
-            <p>Region: {country.region}</p>
-            <p>Sub Region:{country.subregion}</p>
-            <p>Capital: {country.capital}</p>
-          </RightSideLeft>
-          <RightSideRight>
-            <p>Top Level Domain: {country.topLevelDomain}</p>
-            <p>Currencies : {country.currencies}</p>
-            <p>Languages : {country.languages}</p>
-          </RightSideRight>
-        </RightSide>
-        <BorderCountries>
-          <p>Border Countries: {country.borders}</p>
-        </BorderCountries>
-      </Info>
-    </Wrapper>
+    <Body swich={swich}>
+      <Wrapper>
+        <LeftSide>
+          <ButtonContainer onClick={() => navigate("/")}>
+            <KeyboardBackspaceIcon />
+            Back
+          </ButtonContainer>
+          <img
+            style={{ width: "500px", height: "350px", borderRadius: "6px" }}
+            src={country.flag}
+            alt={country.name}
+          />
+        </LeftSide>
+        <Info>
+          <h1>{country.name}</h1>
+          <RightSide>
+            <RightSideLeft>
+              <p>Native Name: {country.nativeName}</p>
+              <p>Population: {country.population.toLocaleString()}</p>
+              <p>Region: {country.region}</p>
+              <p>Sub Region:{country.subregion}</p>
+              <p>Capital: {country.capital}</p>
+            </RightSideLeft>
+            <RightSideRight>
+              <p>Top Level Domain: {country.topLevelDomain}</p>
+              <p>Currencies : {country.currencies}</p>
+              <p>Languages : {country.languages}</p>
+            </RightSideRight>
+          </RightSide>
+          <BorderCountries>
+            <p>Border Countries: {country.borders}</p>
+          </BorderCountries>
+        </Info>
+      </Wrapper>
+    </Body>
   );
 };
 
