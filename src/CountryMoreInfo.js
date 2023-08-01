@@ -107,9 +107,7 @@ const CountryMoreInfo = () => {
               <p>Languages : {country.languages}</p>
             </RightSideRight>
           </RightSide>
-          <BorderCountries>
-            <p>Border Countries: {country.borders}</p>
-          </BorderCountries>
+          <BorderCountries></BorderCountries>
         </Info>
       </Wrapper>
     </Body>
