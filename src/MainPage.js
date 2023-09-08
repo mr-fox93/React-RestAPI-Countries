@@ -10,6 +10,8 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Body = styled.body`
   min-height: 100vh;
@@ -110,7 +112,21 @@ function MainPage() {
     }
   }, [region, data]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Stack sx={{ color: "grey.500" }} spacing={4} direction="row">
+          <CircularProgress color="inherit" />
+        </Stack>
+      </div>
+    );
   if (error) return <div>{error.message}</div>;
 
   const selectRegion = (event) => {
