@@ -8,6 +8,8 @@ import { GlobalContext } from "./global";
 import SearchIcon from "@mui/icons-material/Search";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const Body = styled.body`
   min-height: 100vh;
@@ -24,7 +26,8 @@ const Wrapper = styled.div`
 
 const SearchContener = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: ${({ isMobile }) => (isMobile ? "column" : "row")};
+  justify-content: ${({ isMobile }) => (isMobile ? "center" : "space-between")};
   align-items: center;
   padding: 20px;
 `;
@@ -40,7 +43,7 @@ const InputWrapper = styled.div`
 
 const Input = styled.input`
   border: none;
-  width: 400px;
+  width: ${({ isMobile }) => (isMobile ? "80%" : "300px")};
   height: 36px;
   padding-left: 10px;
   outline: none;
@@ -85,6 +88,9 @@ function MainPage() {
 
   const { data, isLoading, error } = useQuery("countries", fetchFunction);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   useEffect(() => {
     if (!isLoading && data) {
       setFiltredRegion(data);
@@ -116,7 +122,7 @@ function MainPage() {
 
   return (
     <Body swich={swich}>
-      <SearchContener>
+      <SearchContener isMobile={isMobile}>
         <InputWrapper swich={swich}>
           <SearchIcon />
           <Input
@@ -136,6 +142,7 @@ function MainPage() {
             marginLeft: "10px",
             height: "46px",
             background: `${swich ? "white" : "#2B3844"}`,
+            marginTop: `${isMobile ? "20px" : "0px"}`,
           }}
         >
           <MenuItem value="Choose region">Choose region</MenuItem>
