@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { GlobalContext } from "./global";
 import styled from "styled-components";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const Body = styled.body`
   min-height: 100vh;
@@ -12,6 +14,7 @@ const Body = styled.body`
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: ${({ isMobile }) => (isMobile ? "column" : "row")};
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 2rem;
@@ -34,6 +37,7 @@ const Info = styled.div`
 
 const RightSide = styled.div`
   display: flex;
+  flex-direction: ${({ isMobile }) => (isMobile ? "column" : "row")};
   gap: 75px;
   padding: 0.5rem;
   margin-top: 65px;
@@ -42,13 +46,13 @@ const RightSide = styled.div`
 const RightSideLeft = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 0.4;
+  line-height: 1;
 `;
 
 const RightSideRight = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 0.4;
+  line-height: 1;
 `;
 
 const BorderCountries = styled.div`
@@ -72,6 +76,8 @@ const CountryMoreInfo = () => {
   const country = filtredRegion.find(
     (count) => count.name.toLowerCase() === name.toLowerCase()
   );
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   if (!country) {
     return <div>No country found</div>;
@@ -79,21 +85,25 @@ const CountryMoreInfo = () => {
 
   return (
     <Body swich={swich}>
-      <Wrapper>
+      <Wrapper isMobile={isMobile}>
         <LeftSide>
           <ButtonContainer onClick={() => navigate("/")}>
             <KeyboardBackspaceIcon />
             Back
           </ButtonContainer>
           <img
-            style={{ width: "500px", height: "350px", borderRadius: "6px" }}
+            style={{
+              width: `${isMobile ? "100%" : "500px"}`,
+              height: `${isMobile ? "100%" : "350px"}`,
+              borderRadius: "6px",
+            }}
             src={country.flag}
             alt={country.name}
           />
         </LeftSide>
         <Info>
           <h1>{country.name}</h1>
-          <RightSide>
+          <RightSide isMobile={isMobile}>
             <RightSideLeft>
               <p>Native Name: {country.nativeName}</p>
               <p>Population: {country.population.toLocaleString()}</p>
