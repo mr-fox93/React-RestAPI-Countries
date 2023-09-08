@@ -46,6 +46,7 @@ const Input = styled.input`
   width: ${({ isMobile }) => (isMobile ? "80%" : "300px")};
   height: 36px;
   padding-left: 10px;
+  font-size: 17px;
   outline: none;
   background-color: ${(props) => (props.swich ? "white" : "#2B3844")};
   color: ${(props) => (props.swich ? "black" : "white !important")};
